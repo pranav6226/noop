@@ -279,8 +279,8 @@ public struct DeviceRegistryStore: Sendable {
     ///
     /// Called by the v48 migration (once, at upgrade) and by `BLEManager.bootstrapStore` on every
     /// launch, so a split re-created by a later session heals on the next launch instead of
-    /// persisting. Kotlin twin: `DeviceRegistryStore.rehomeLegacyWhoopAlias` (Room MIGRATION_41_42
-    /// + the same bootstrap call) — required for parity, not part of this change.
+    /// persisting. This change is iOS-only: the Android Room store has no equivalent re-home
+    /// migration yet, and adding one is a follow-up, called out in the PR.
     @discardableResult
     public func rehomeLegacyWhoopAliasIfNeeded() throws -> Bool {
         try dbQueue.write { db in try Self.rehomeLegacyWhoopAlias(db) }
